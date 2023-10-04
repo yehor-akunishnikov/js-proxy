@@ -1,0 +1,23 @@
+h1,
+h2 {
+  font-family: Lato;
+}
+
+.dd {
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  border: 1px solid #000;
+}
+
+.dd-toggler {
+  width: 100%;
+}
+
+.dd-content {
+  border: 1px solid #000;
+}
+
+.hidden {
+  opacity: 0;
+}
