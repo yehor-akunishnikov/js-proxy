@@ -1,8 +1,13 @@
 <div id="app">
-  <div class="dd" id="dropdown">
-    <button data-event="click:onTogglerClick:someTestProp" class="dd-toggler">
-      Title
-    </button>
-    <div data-show="state" class="dd-content">Content</div>
-  </div>
+  <form class="dd" id="componentRoot" data-event="submit:onSubmit">
+    <input placeholder="Name" name="name" type="text" />
+    <input placeholder="Surname" name="surname" type="text" />
+    <button type="submit" class="dd-toggler">Show data</button>
+    <div data-show="name">
+      <!-- <p data-binding>Name: {{name}}</p>
+      <p data-binding>Surname: {{surname}}</p> -->
+      <p data-binding>{{name}}: {{surname}}</p>
+    </div>
+    <div data-show="!name">No data</div>
+  </form>
 </div>

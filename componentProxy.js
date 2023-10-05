@@ -1,19 +1,38 @@
-import { handleShow } from './directiveHelpers.js';
+import { handleShow, handleBinbing } from './directiveHelpers.js';
 
-export const wrapWithProxy = (component) => {
-  const reactiveComponent = new Proxy(component, {
+export const proxifyProperty = (property, directives, component) => {
+  return new Proxy(property, {
     set(target, name, value) {
-      Object.keys(target.directives).forEach((directiveName) => {
+      component?.onChanges(name, value);
+
+      Object.keys(directives).forEach((directiveName) => {
         switch (directiveName) {
-          case 'data-show': {
-            handleShow(target.directives[directiveName], name, value);
-          }
+          case 'data-show':
+            {
+              if (target[name] !== value) {
+                handleShow(directives[directiveName], name, value);
+              }
+            }
+            break;
+          case 'data-binding':
+            {
+              if (target[name] !== value) {
+                handleBinbing(directives[directiveName], {
+                  ...target,
+                  [name]: value,
+                });
+              }
+            }
+            break;
+          default:
+            break;
         }
       });
 
       return Reflect.set(target, name, value);
     },
+    get(target, name) {
+      return Reflect.get(target, name);
+    },
   });
-
-  return reactiveComponent;
 };
